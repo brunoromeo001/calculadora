@@ -17,8 +17,12 @@ class CalController{
         setInterval(()=>{
 
             this.setDiplayDateTime();
-        }, 1000);
-       
+        }, 1000);       
+    }
+
+    initializeButtonEvents(){
+
+        document.querySelectorAll("#buttons > g, #parts > g");
     }
 
     setDiplayDateTime(){
