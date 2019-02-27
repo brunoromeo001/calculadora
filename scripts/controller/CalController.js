@@ -8,6 +8,7 @@ class CalController{
         this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
+        this.initButtonsEvents();
     }    
 
     initialize(){
@@ -20,9 +21,17 @@ class CalController{
         }, 1000);       
     }
 
-    initializeButtonEvents(){
+    initButtonsEvents(){
 
-        document.querySelectorAll("#buttons > g, #parts > g");
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+        buttons.forEach((btn, index)=> {
+            
+            btn.addEventListener("click", e=>{
+
+                console.log(btn.className.baseVal.replace("btn-",""));
+            });
+        });
     }
 
     setDiplayDateTime(){
