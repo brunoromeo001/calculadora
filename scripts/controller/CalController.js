@@ -35,9 +35,47 @@ class CalController{
         this.displayCalc = "Error";
     }
 
+    setLastOperetion(value){
+
+        this._operation[this._operation.length - 1] = value;
+    }
+
+    isOperator(value){
+
+        return (["+", "-", "*", "%", "/"].indexOf(value) > -1);
+    }
+
+    getLastOperetion(){
+
+        return this._operation[this._operation.length - 1];
+    }
+
     addOperation(value){
 
-        this._operation.push(value);
+       console.log("A", isNaN(this.getLastOperetion()));
+
+        if (isNaN(this.getLastOperetion())){
+
+            if(this.isOperator(value)){
+
+                this.setLastOperetion(value);
+
+            } else if(isNaN(value)){
+
+                console.log(value);
+
+            } else{
+
+                this._operation.push(value);
+            }
+
+        } else{
+
+            let newValue = this.getLastOperetion().toString() + value.toString();
+            this.setLastOperetion(parseInt(newValue));
+        }
+
+        //this._operation.push(value);
 
         console.log(this._operation);
     }
@@ -52,6 +90,7 @@ class CalController{
         this._operation.pop()
     }
 
+  
     execBtn(value){
 
         switch (value){
@@ -59,27 +98,39 @@ class CalController{
             case 'ac':                
                 this.clearAll();
             break;
+
             case 'ce':
                 this.clearEntry();
             break;
+
             case 'soma':
-
+                this.addOperation("+");
             break;
+
             case 'subtracao':
-
+                this.addOperation("-");
             break;
+
             case 'divisao':
-
+                this.addOperation("/");
             break;
+            
             case 'multiplicacao':
-
+                this.addOperation("*");
             break;
+            
             case 'porcento':
-
+                this.addOperation("%");
             break;
+            
             case 'igual':
-
+                
             break;
+
+            case 'ponto':
+                this.addOperation(".");
+            break;
+
             case "0":
             case "1":
             case "2":
@@ -92,6 +143,7 @@ class CalController{
             case "9":
                 this.addOperation(parseInt(value));
             break;
+
             default:
                 this.setError();
             break;
