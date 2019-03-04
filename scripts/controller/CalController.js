@@ -50,10 +50,33 @@ class CalController{
         return this._operation[this._operation.length - 1];
     }
 
+    pushOperation(value){
+
+        this._operation.push(value);
+
+        if (this._operation.length > 3){
+
+            this.calc();
+        }
+    }
+
+    calc(){
+
+        let last = this._operation.pop();
+
+        let result = eval(this._operation.join(""));
+
+        this._operation = [result, last];
+    
+    }
+
+    setLastNumberToDisplay(){
+
+        
+    }
+
     addOperation(value){
-
-       console.log("A", isNaN(this.getLastOperetion()));
-
+       
         if (isNaN(this.getLastOperetion())){
 
             if(this.isOperator(value)){
@@ -62,22 +85,30 @@ class CalController{
 
             } else if(isNaN(value)){
 
-                console.log(value);
+                console.log('Outra Coisa', value);
 
             } else{
 
-                this._operation.push(value);
+                this.pushOperation(value);
             }
 
         } else{
 
-            let newValue = this.getLastOperetion().toString() + value.toString();
-            this.setLastOperetion(parseInt(newValue));
-        }
+            if (this.isOperator(value)){
+                
+                this.pushOperation(value);
 
-        //this._operation.push(value);
+            } else{
+                
+                let newValue = this.getLastOperetion().toString() + value.toString();
+                this.setLastOperetion(parseInt(newValue));
 
-        console.log(this._operation);
+                this.setLastNumberToDisplay();
+
+            }
+            
+        }        
+        
     }
 
     clearAll(){
