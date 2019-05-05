@@ -86,7 +86,6 @@ class CalController{
 
             this._audio.currentTime = 0;
             this._audio.play();
-
         }
     }
 
@@ -433,6 +432,13 @@ class CalController{
     }
 
     set displayCalc(value){
+
+        if (value.toString().length > 10){
+
+            this.setError();
+            return false;
+
+        }
 
         this._displayCalcEl.innerHTML = value;
     }
