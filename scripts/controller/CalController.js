@@ -23,6 +23,34 @@ class CalController{
         });
     }
 
+    //Colar para área de transferência
+    pasteFromClipboard(){
+
+        document.addEventListener('paste', e=>{
+
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+            
+        });
+    }
+
+    //Copiar da área de tranferência
+    copyToClipboard(){
+
+        let input = document.createElement('input');
+
+        input.value = this.displayCalc;
+
+        document.body.appendChild(input);
+
+        input.select();
+
+        document.execCommand("Copy");
+
+        input.remove();
+    }
+
     initialize(){
 
         this.setDiplayDateTime();
@@ -33,6 +61,7 @@ class CalController{
         }, 1000);     
         
         this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
     }
 
     initKeyboard(){
@@ -79,7 +108,11 @@ class CalController{
                 case "8":
                 case "9":
                     this.addOperation(parseInt(e.key));
-                break;                    
+                break;  
+                
+                case "c":
+                    if(e.ctrlKey) this.copyToClipboard();
+                break;
             }
         });
     }
